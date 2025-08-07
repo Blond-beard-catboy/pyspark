@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, LongType, IntegerType, TimestampType, DoubleType
-from pyspark.sql.functions import col, count, when  # Добавлен импорт функций
+from pyspark.sql.functions import col, count, when  
 
 spark = SparkSession.builder \
     .appName("Customs Data Analysis") \
@@ -41,6 +41,7 @@ try:
     print("\nПервые 5 записей:")
     df.show(5, truncate=False)
     # df.write.format("parquet").save("/home/alex/pyspark/data/customs_data.parquet")
+    print(f"Число строк: {df.count()}")
 
 except Exception as e:
     print(f"Ошибка: {str(e)}")
