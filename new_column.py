@@ -16,14 +16,14 @@ try:
         header=True,
         inferSchema=True
     )
-    
-    # df.filter(F.col("netto") > 10).show()
-    df_with_netto_difference = df.withColumn("netto_info", F.when(
+    df_cached = df.cache()
+    df_cached.filter(F.col("netto") > 10).show()
+    df_with_netto_difference = df_cached.withColumn("netto_info", F.when(
         F.column("netto") > 10, F.lit("More then 10 points")        
     ).when(
         F.column("netto") < 10, F.lit("Less then 10 points")
 
-    ))
+    )).show()
 
 finally:
     spark.stop()
